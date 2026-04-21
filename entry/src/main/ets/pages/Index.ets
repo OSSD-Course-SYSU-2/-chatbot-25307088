@@ -34,6 +34,21 @@ struct Index {
     this.loadData();
   }
   
+  // 页面每次显示时重新加载设置（确保人格模板更新生效）
+  onPageShow(): void {
+    this.loadPersonalityPrompt();
+  }
+  
+  // 加载人格提示词
+  async loadPersonalityPrompt(): Promise<void> {
+    try {
+      const settings = await this.storageService.getAppSettings();
+      this.personalityPrompt = settings.personalityPrompt;
+    } catch (error) {
+      console.error('加载人格提示词失败:', error);
+    }
+  }
+  
   // 加载数据
   async loadData(): Promise<void> {
     try {
@@ -273,6 +288,7 @@ struct Index {
             
             Button('设置')
               .fontSize(14)
+              .fontColor('#666666')
               .backgroundColor(Color.Transparent)
               .margin({ left: 8 })
               .onClick(() => {

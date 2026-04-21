@@ -1,12 +1,42 @@
+# 依赖
 /node_modules
 /oh_modules
+
+# 本地配置（含SDK路径、签名等敏感信息）
 /local.properties
+
+# IDE配置
 /.idea
+
+# 编译产物
 **/build
 /.hvigor
 .cxx
+
+# 代码分析工具
 /.clangd
 /.clang-format
 /.clang-tidy
 **/.test
 /.appanalyzer
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# 用户数据文件（如果有导出功能）
+*.db
+*.sqlite
+data/
+cache/
+
+# API密钥配置文件（如果单独存储）
+api-keys.json
+secrets.json
+.env
+.env.local

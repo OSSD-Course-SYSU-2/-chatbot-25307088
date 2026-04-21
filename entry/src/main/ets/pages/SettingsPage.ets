@@ -42,6 +42,7 @@ export struct SettingsPage {
   @State testResult: string = '';
   @State modelConfigFormErrors: Map<string, string> = new Map();
   @State personalityTemplateFormErrors: Map<string, string> = new Map();
+  @State appliedTemplateId: string = ''; // 已应用的人格模板ID
   
   private storageService: StorageService = StorageService.getInstance();
   private aiService: AIService = AIService.getInstance();
@@ -72,8 +73,20 @@ export struct SettingsPage {
   }
   
   async applyPersonalityTemplate(template: PersonalityTemplate): Promise<void> {
-    this.appSettings.personalityPrompt = template.prompt;
-    await this.storageService.saveAppSettings(this.appSettings);
+    try {
+      this.appSettings.personalityPrompt = template.prompt;
+      this.appliedTemplateId = template.id;
+      await this.storageService.saveAppSettings(this.appSettings);
+      // 显示成功提示
+      this.testResult = `已应用人格模板：${template.name}`;
+      // 3秒后清除提示
+      setTimeout(() => {
+        this.testResult = '';
+      }, 3000);
+    } catch (error) {
+      console.error('应用人格模板失败:', error);
+      this.testResult = '应用失败: ' + (error as Error).message;
+    }
   }
   
   async saveAppSettings(): Promise<void> {
@@ -425,6 +438,18 @@ export struct SettingsPage {
           }
           .width('100%')
           
+          // 显示应用结果提示
+          if (this.testResult && this.testResult.includes('人格模板')) {
+            Text(this.testResult)
+              .fontSize(14)
+              .fontColor('#34C759')
+              .padding(12)
+              .backgroundColor('#E8F5E9')
+              .borderRadius(8)
+              .width('100%')
+              .margin({ top: 8, bottom: 8 })
+          }
+          
           ForEach(this.personalityTemplates, (template: PersonalityTemplate) => {
             Column() {
               Row() {
@@ -443,10 +468,10 @@ export struct SettingsPage {
                 .layoutWeight(1)
                 
                 Row() {
-                  Button('应用')
+                  Button(this.appliedTemplateId === template.id ? '已应用' : '应用')
                     .fontSize(12)
                     .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-                    .backgroundColor('#007AFF')
+                    .backgroundColor(this.appliedTemplateId === template.id ? '#34C759' : '#007AFF')
                     .fontColor(Color.White)
                     .borderRadius(4)
                     .onClick(() => {
@@ -493,6 +518,7 @@ export struct SettingsPage {
           Text('应用设置')
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
+            .fontColor('#666666')
             .margin({ top: 24, bottom: 12 })
           
           Column() {
