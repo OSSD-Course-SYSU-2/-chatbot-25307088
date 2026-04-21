@@ -192,14 +192,25 @@ export struct SettingsPage {
     }
     
     try {
+      // 确保配置启用
+      this.newModelConfig.enabled = true;
+      
       if (this.editingModelConfig) {
         await this.storageService.updateModelConfig(this.newModelConfig);
       } else {
         await this.storageService.addModelConfig(this.newModelConfig);
       }
       
+      // 自动设置为默认配置
+      await this.setDefaultConfig(this.newModelConfig.id);
+      
       await this.loadData();
       this.closeModelConfigForm();
+      this.testResult = '配置已保存并设为默认';
+      // 3秒后清除提示
+      setTimeout(() => {
+        this.testResult = '';
+      }, 3000);
     } catch (error) {
       console.error('保存模型配置失败:', error);
       this.testResult = '保存失败: ' + (error as Error).message;

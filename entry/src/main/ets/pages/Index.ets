@@ -34,18 +34,29 @@ struct Index {
     this.loadData();
   }
   
-  // 页面每次显示时重新加载设置（确保人格模板更新生效）
+  // 页面每次显示时重新加载设置（确保人格模板和AI配置更新生效）
   onPageShow(): void {
-    this.loadPersonalityPrompt();
+    this.loadSettings();
   }
   
-  // 加载人格提示词
-  async loadPersonalityPrompt(): Promise<void> {
+  // 加载设置（人格提示词和AI配置）
+  async loadSettings(): Promise<void> {
     try {
       const settings = await this.storageService.getAppSettings();
       this.personalityPrompt = settings.personalityPrompt;
+      
+      // 重新加载AI模型配置
+      const modelConfigs = await this.storageService.getModelConfigs();
+      let defaultConfig = modelConfigs.find(config => config.id === settings.defaultModelConfigId);
+      if (!defaultConfig) {
+        defaultConfig = modelConfigs.find(config => config.enabled);
+      }
+      if (defaultConfig) {
+        this.aiService.setConfig(defaultConfig);
+        console.info('已更新AI模型配置:', defaultConfig.name);
+      }
     } catch (error) {
-      console.error('加载人格提示词失败:', error);
+      console.error('加载设置失败:', error);
     }
   }
   
@@ -71,9 +82,17 @@ struct Index {
       
       // 加载AI模型配置
       const modelConfigs = await this.storageService.getModelConfigs();
-      const defaultConfig = modelConfigs.find(config => config.enabled);
+      // 优先使用设置的默认配置ID
+      let defaultConfig = modelConfigs.find(config => config.id === settings.defaultModelConfigId);
+      // 如果没有找到，则使用第一个启用的配置
+      if (!defaultConfig) {
+        defaultConfig = modelConfigs.find(config => config.enabled);
+      }
       if (defaultConfig) {
         this.aiService.setConfig(defaultConfig);
+        console.info('已加载AI模型配置:', defaultConfig.name);
+      } else {
+        console.warn('未找到可用的AI模型配置');
       }
       
     } catch (error) {
