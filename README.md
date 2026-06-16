@@ -35,6 +35,12 @@
 - 响应式布局
 - 深色模式支持
 
+### 多端部署
+- **响应式断点系统**：支持 xs（穿戴）、sm（手机）、md（平板）、lg（大屏）四种断点
+- **自适应布局**：根据设备屏幕尺寸自动调整布局参数（间距、列数、字体大小等）
+- **多设备适配**：一套代码适配手机、平板、折叠屏、智能穿戴等多种设备
+- **动态监听**：实时监听窗口尺寸变化，动态调整界面布局
+
 ## 快速开始
 
 ### 1. 配置API
@@ -67,6 +73,12 @@ MyApplication2/
 │       └── pages/
 │           ├── Index.ets              # 主页面
 │           └── SettingsPage.ets       # 设置页面
+├── common/
+│   └── src/main/ets/
+│       ├── utils/
+│       │   └── BreakpointSystem.ets   # 断点系统
+│       └── components/
+│           └── ResponsiveLayout.ets   # 响应式布局组件
 └── docs/
     └── API配置指南.md                  # 详细配置文档
 ```
@@ -91,6 +103,19 @@ MyApplication2/
 - 连接测试
 - 人格模板管理
 - 应用设置
+
+### BreakpointSystem
+响应式断点系统：
+- 支持四种断点：xs（0-320vp）、sm（320-600vp）、md（600-840vp）、lg（840vp+）
+- 实时监听窗口尺寸变化
+- 全局状态管理（V2装饰器）
+- 自动计算当前断点
+
+### ResponsiveLayout
+响应式布局组件：
+- ResponsiveContainer：自适应容器，根据断点调整内边距
+- ResponsiveGrid：自适应网格，根据断点调整列数
+- ResponsiveText：自适应文本，根据断点调整字体大小
 
 ## 技术栈
 
@@ -187,6 +212,13 @@ hvigorw assembleHap
 所有配置在 `entry/src/main/ets/service/StorageService.ets` 中定义。
 
 ## 更新日志
+
+### v1.1.0 (2026-06-16)
+- 新增多端部署支持
+- 实现响应式断点系统（xs/sm/md/lg）
+- 添加自适应布局组件
+- 支持手机、平板、折叠屏、智能穿戴等多设备适配
+- 优化UI在不同屏幕尺寸下的显示效果
 
 ### v1.0.0 (2026-04-20)
 -  完整的大模型API接入功能

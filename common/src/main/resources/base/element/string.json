@@ -1,0 +1,8 @@
+{
+  "string": [
+    {
+      "name": "shared_desc",
+      "value": "Common shared module for multi-device deployment"
+    }
+  ]
+}

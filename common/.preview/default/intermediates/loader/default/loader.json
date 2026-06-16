@@ -1,0 +1,29 @@
+{
+  "modulePathMap": {
+    "entry": "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\entry",
+    "common": "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common"
+  },
+  "compileMode": "esmodule",
+  "projectRootPath": "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2",
+  "nodeModulesPath": "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common\\.preview\\default\\intermediates\\loader_out\\default\\node_modules",
+  "byteCodeHarInfo": {},
+  "declarationEntry": [],
+  "moduleName": "common",
+  "hspNameOhmMap": {},
+  "harNameOhmMap": {},
+  "packageManagerType": "ohpm",
+  "compileEntry": [
+    "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common\\src\\main\\ets\\index.ets",
+    "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common\\src\\main\\ets\\components\\ResponsiveLayout.ets",
+    "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common\\src\\main\\ets\\utils\\BreakpointSystem.ets"
+  ],
+  "otherCompileFiles": [],
+  "dynamicImportLibInfo": {},
+  "routerMap": [],
+  "hspResourcesMap": {},
+  "updateVersionInfo": {},
+  "customizedHar": false,
+  "anBuildOutPut": "C:\\Users\\13650\\DevEcoStudioProjects\\MyApplication2\\common\\.preview\\default\\intermediates\\loader_out\\default\\an\\arm64-v8a",
+  "anBuildMode": "type",
+  "buildConfigPath": ".preview\\config\\buildConfig.json"
+}

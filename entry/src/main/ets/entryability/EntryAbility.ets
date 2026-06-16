@@ -2,10 +2,14 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { StorageService } from '../service/StorageService';
+import { BreakpointSystem } from 'common';
 
 const DOMAIN = 0x0000;
 
 export default class EntryAbility extends UIAbility {
+  // 断点系统实例
+  private breakpointSystem: BreakpointSystem = new BreakpointSystem();
+  
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
@@ -31,12 +35,23 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
+      
+      // 注册断点监听，实现多设备适配
+      try {
+        const mainWindow = windowStage.getMainWindowSync();
+        this.breakpointSystem.register(mainWindow);
+        hilog.info(DOMAIN, 'testTag', 'Breakpoint system registered successfully');
+      } catch (e) {
+        hilog.error(DOMAIN, 'testTag', 'Failed to register breakpoint system: %{public}s', JSON.stringify(e));
+      }
     });
   }
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    // 注销断点监听
+    this.breakpointSystem.unregister();
   }
 
   onForeground(): void {

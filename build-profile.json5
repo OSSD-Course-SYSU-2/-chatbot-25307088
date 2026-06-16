@@ -14,6 +14,19 @@
             "useNormalizedOHMUrl": true
           }
         }
+      },
+      {
+        "name": "tablet",
+        "signingConfig": "default",
+        "targetSdkVersion": "6.0.2(22)",
+        "compatibleSdkVersion": "6.0.2(22)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
       }
     ],
     "buildModeSet": [
@@ -33,7 +46,21 @@
         {
           "name": "default",
           "applyToProducts": [
-            "default"
+            "default",
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default",
+            "tablet"
           ]
         }
       ]

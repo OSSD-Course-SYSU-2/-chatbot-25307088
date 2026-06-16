@@ -1,0 +1,9 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "modelVersion": "6.0.2",
+  "description": "Common shared module",
+  "main": "index.ets",
+  "dependencies": {},
+  "devDependencies": {}
+}

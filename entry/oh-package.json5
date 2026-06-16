@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@ohos/axios": "^1.0.0"
+    "common": "file:../common"
   }
 }
 
