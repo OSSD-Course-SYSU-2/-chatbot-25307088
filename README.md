@@ -43,7 +43,7 @@
 - 响应式布局，适配移动端和桌面端
 - 支持深色模式，提供舒适的视觉体验
 
-![会话界面](c:\Users\13650\AppData\Roaming\codearts-agent\User\image\img_1783495209545_3vg2.png)
+![会话界面](img_2.png)
 
 ### 用户界面
 - 流畅交互体验
